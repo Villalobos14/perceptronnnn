@@ -19,7 +19,7 @@ def plotWeightsEvolution(weights, save_filename="WeightsEvolution.jpg"):
 def plotErrorEvolution(errors, save_filename="ErrorEvolution.jpg"):
     fig, axes = plt.subplots(figsize=(8, 6))
     iterations = list(range(len(errors)))
-    axes.plot(iterations, errors, linestyle="-" , c="red")
+    axes.plot(iterations, errors, linestyle="-" ,c="red")
     axes.set_title('Evolución de la norma del error')
     axes.set_xlabel('Iteración')
     axes.set_ylabel('Error')
@@ -28,17 +28,10 @@ def plotErrorEvolution(errors, save_filename="ErrorEvolution.jpg"):
     plt.close(fig)
 
 def plotDesiredVsCalculated(Y, Y_calc, save_filename="DesiredVsCalculated.jpg"):
-    """
-    Grafica la salida deseada (Y real) vs la salida calculada (Y_calc)
-    una vez que el Perceptrón ha finalizado el entrenamiento.
-    """
     fig, ax = plt.subplots(figsize=(8, 6))
     indices = np.arange(len(Y))
-
-    # Gráfica de la salida deseada en rojo y la calculada en azul
     ax.plot(indices, Y, 'ro', label='Y deseada')
     ax.plot(indices, Y_calc, 'bx', label='Y calculada')
-
     ax.set_title('Salida Deseada vs Salida Calculada (Final)')
     ax.set_xlabel('Índice de la Muestra')
     ax.set_ylabel('Valor de Salida')
@@ -46,6 +39,19 @@ def plotDesiredVsCalculated(Y, Y_calc, save_filename="DesiredVsCalculated.jpg"):
     plt.savefig(save_filename)
     plt.show()
     plt.close(fig)
+
+def plotAbsoluteError(Y, Y_calc, save_filename="AbsoluteError.jpg"):
+    error_abs = np.abs(Y - Y_calc)
+    plt.figure(figsize=(7, 5))
+    plt.plot(error_abs, "b-", label="|Y_d - Y_c|", linewidth=1)
+    plt.xlabel("Índice de la muestra")
+    plt.ylabel("Diferencia Absoluta")
+    plt.title("Error Absoluto entre Y_d y Y_c")
+    plt.legend()
+    plt.grid()
+    plt.savefig(save_filename)
+    plt.show()
+    plt.close()
 
 def resume(weightList, epoch, eta, tolerancy):
     ventana_emergente = tk.Tk()

@@ -13,9 +13,9 @@ class DataObject:
 
     def __str__(self):
         return (
-            f"Tasa de aprendizaje: {self.eta},\n"
-            f"Tolerancia: {self.tolerancy},\n"
-            f"Epoch: {self.epoch},\n"
+            f"Tasa de aprendizaje: {self.eta}\n"
+            f"Tolerancia: {self.tolerancy}\n"
+            f"Epoch: {self.epoch}\n"
             f"Data:\n{self.csv_read}"
         )
 
@@ -47,6 +47,7 @@ def save_data():
     tolerancy_value = float(tolerancy.get())
     epoch_value = int(epoch.get())
 
+    # Asignamos el DataFrame que subimos a csv_read
     csv_read_value = csv_read
     data = DataObject(
         eta=eta_value,
@@ -54,31 +55,33 @@ def save_data():
         epoch=epoch_value,
         csv_read=csv_read_value
     )
-    initialization(data)        
+    # Llamamos a la inicialización/entrenamiento
+    initialization(data)
 
 root = Tk()
 root.title("How to train your perceptron")
 
 mainframe = ttk.Frame(root, padding="3 3 12 12")
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+
 for i in range(4):
     root.rowconfigure(i, weight=1)
     for j in range(3):
         mainframe.columnconfigure(j, weight=1)
 
 eta = StringVar()
-ttk.Label(mainframe, text="Tasa de aprendizaje:").grid(column=1, row=1, sticky=W)
 eta.set("0.01")
+ttk.Label(mainframe, text="Tasa de aprendizaje:").grid(column=1, row=1, sticky=W)
 ttk.Entry(mainframe, textvariable=eta).grid(column=2, row=1, sticky=W)
 
 tolerancy = StringVar()
-ttk.Label(mainframe, text="Tolerancia:").grid(column=1, row=2, sticky=W)
 tolerancy.set("0.1")
+ttk.Label(mainframe, text="Tolerancia:").grid(column=1, row=2, sticky=W)
 ttk.Entry(mainframe, textvariable=tolerancy).grid(column=2, row=2, sticky=W)
 
 epoch = StringVar()
-ttk.Label(mainframe, text="Número de iteraciones:").grid(column=1, row=3, sticky=W)
 epoch.set("1000")
+ttk.Label(mainframe, text="Número de iteraciones:").grid(column=1, row=3, sticky=W)
 ttk.Entry(mainframe, textvariable=epoch).grid(column=2, row=3, sticky=W)
 
 ttk.Button(mainframe, text="Entrenar", command=save_data).grid(column=3, row=4, sticky=W)
